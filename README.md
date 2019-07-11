@@ -1,6 +1,6 @@
-# gonativeModule3
+# gonativeModule4
 
-Module 3 of Rocketseat React Native Course
+Module 4 of Rocketseat React Native Course
 
 This work environment was prepared using the same tutorial of Module 1 and 2, reproduced below:
 
