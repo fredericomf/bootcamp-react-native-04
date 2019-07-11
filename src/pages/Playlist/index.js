@@ -47,7 +47,9 @@ class Playlist extends Component {
           )}
           data={podcast.tracks}
           keyExtractor={song => String(song.id)}
-          renderItem={({ item: song }) => (
+          renderItem={(
+            { item: song }, // STUDY_NOTE: Renaming item to song
+          ) => (
             <Song onPress={() => this.handlePlay(podcast.id, song.id)}>
               <Title active={currentSong && currentSong.id === song.id}>{song.title}</Title>
               <Author>{song.artist}</Author>

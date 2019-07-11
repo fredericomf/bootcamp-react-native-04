@@ -25,6 +25,7 @@ function* trackChanged() {
   }
 }
 
+// This function will be triggered with the application initialization
 export function* init() {
   yield call(TrackPlayer.setupPlayer);
 

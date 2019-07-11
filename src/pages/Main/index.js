@@ -19,7 +19,7 @@ class Main extends Component {
   async componentDidMount() {
     const { loadRequest } = this.props;
 
-    loadRequest();
+    loadRequest(); // Come from mapDispatchToProps
   }
 
   handlePodcastNavigation = (podcast) => {
@@ -53,7 +53,7 @@ class Main extends Component {
 }
 
 const mapStateToProps = state => ({
-  podcasts: state.podcasts,
+  podcasts: state.podcasts, // Here is what I wanna to listen from REDUX
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(PodcastsActions, dispatch);

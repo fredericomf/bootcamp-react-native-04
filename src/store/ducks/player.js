@@ -1,4 +1,4 @@
-import { createReducer, createActions } from 'reduxsauce';
+import { createReducer, createActions } from 'reduxsauce'; // More informations about reduxsauce in README.MD file
 import Immutable from 'seamless-immutable';
 
 /* Types & Action Creators */
@@ -20,9 +20,9 @@ export default Creators;
 /* Initial State */
 
 export const INITIAL_STATE = Immutable({
-  podcast: null,
+  podcast: null, // This is the complete podcast
   playing: false,
-  current: null,
+  current: null, // This is the current episode of podcast
 });
 
 /* Reducers to types */
