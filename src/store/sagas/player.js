@@ -2,16 +2,17 @@ import {
   call, take, put, select,
 } from 'redux-saga/effects';
 
-import { eventChannel } from 'redux-saga';
+import { eventChannel } from 'redux-saga'; // STUDY_NOTE: eventChannel is a way to listen event listeners inside saga
 import TrackPlayer from 'react-native-track-player';
 
 import PlayerActions from '~/store/ducks/player';
 
 function* trackChanged() {
   const channel = eventChannel((emitter) => {
+    // This "emitter" will be called each time that event listener is called
     const onTrackChange = TrackPlayer.addEventListener('playback-track-changed', emitter);
 
-    return () => onTrackChange.remove();
+    return () => onTrackChange.remove(); // Removed listener to avoid unecessary listen
   });
 
   try {
@@ -31,6 +32,7 @@ export function* init() {
 
   TrackPlayer.updateOptions({
     capabilities: [
+      // STUDY_NODE: This is for IOS. Here we can configure what options grant to user access.
       TrackPlayer.CAPABILITY_PLAY,
       TrackPlayer.CAPABILITY_PAUSE,
       TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
@@ -38,6 +40,7 @@ export function* init() {
       TrackPlayer.CAPABILITY_STOP,
     ],
     notificationCapabilities: [
+      // STUDY_NODE: This is for ANDROID. Here we can configure what options grant to user access.
       TrackPlayer.CAPABILITY_PLAY,
       TrackPlayer.CAPABILITY_PAUSE,
       TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
@@ -52,6 +55,7 @@ export function* init() {
   });
 }
 
+// STUDY_NOTE: This function will be used by the Saga Listener implemented at "./index.js" and called when the respective redux action is triggered
 export function* setPodcast({ podcast, songId }) {
   const currentPodcast = yield select(state => state.player.podcast);
 
@@ -59,7 +63,7 @@ export function* setPodcast({ podcast, songId }) {
     yield call(TrackPlayer.stop);
     yield call(TrackPlayer.reset);
 
-    yield call(TrackPlayer.add, [...podcast.tracks]);
+    yield call(TrackPlayer.add, [...podcast.tracks]); // STUDY_NOTE: A new array of tracks is created to avoid reference error over a immutable array
 
     yield put(PlayerActions.setPodcastSuccess(podcast));
   }
@@ -69,7 +73,7 @@ export function* setPodcast({ podcast, songId }) {
     yield put(PlayerActions.setCurrent(songId));
   }
 
-  yield put(PlayerActions.play());
+  yield put(PlayerActions.play()); // Here is triggered the redux-action "play" to enter in play saga listener flux (see index.js), calling the method "play()" implementer on this file.
   yield call(trackChanged);
 }
 

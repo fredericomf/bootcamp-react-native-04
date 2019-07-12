@@ -10,7 +10,7 @@ const { Types, Creators } = createActions({
   next: null,
   prev: null,
   setCurrent: ['id'],
-  setPodcast: ['podcast', 'songId'],
+  setPodcast: ['podcast', 'songId'], // This values are the parameters accepted for setPodcast function
   setPodcastSuccess: ['podcast'],
 });
 
@@ -21,7 +21,7 @@ export default Creators;
 
 export const INITIAL_STATE = Immutable({
   podcast: null, // This is the complete podcast
-  playing: false,
+  playing: false, // If is a song playing
   current: null, // This is the current episode of podcast
 });
 
